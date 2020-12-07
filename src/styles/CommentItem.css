@@ -1,5 +1,6 @@
 .raf-comment-item {
   display: flex;
+  position: relative;
 
   /* margin: 8px 0; */
   padding: 8px 0;
@@ -35,6 +36,6 @@
 }
 
 .raf-comment-item__author {
-  color: $info;
+  color: $primary;
   font-weight: 700;
 }

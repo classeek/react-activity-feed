@@ -19,7 +19,7 @@ class LoadMoreButton extends React.Component<Props> {
       <div className="raf-load-more-button">
         <Button
           onClick={this.props.onClick}
-          buttonStyle="info"
+          buttonStyle="primary"
           disabled={this.props.refreshing}
           loading={this.props.refreshing}
         >
