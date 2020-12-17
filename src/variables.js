@@ -15,7 +15,7 @@ export const variables = {
   transparent: 'rgba(255,255,255,0)',
   white: '#ffffff',
   black: '#000000',
-  primary: '#00D46A',
+  primary: '#F6A623',
   info: '#0BA8E0',
   faded: '#DDDDDD',
   error: '#FF0000',

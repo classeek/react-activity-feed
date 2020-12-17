@@ -35,6 +35,7 @@
   width: inherit;
   height: inherit;
   object-fit: cover;
+  object-position: top;
 }
 
 .raf-card__content {

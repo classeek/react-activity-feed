@@ -2,7 +2,6 @@
 import * as React from 'react';
 // import ReactionIcon from './ReactionIcon';
 import LikeButton from './LikeButton';
-import RepostButton from './RepostButton';
 import Flex from './Flex';
 import type {
   BaseActivityResponse,
@@ -22,6 +21,8 @@ export type Props = {|
   activity: BaseActivityResponse,
   /** The function that toggles  reaction. */
   onToggleReaction: ToggleReactionCallbackFunction,
+
+  currentUserId: string,
 |};
 
 /**
@@ -35,7 +36,14 @@ export default class ActivityFooter extends React.Component<Props> {
   };
 
   render() {
-    const { activity, onToggleReaction } = this.props;
+    const { activity, onToggleReaction, currentUserId } = this.props;
+
+    let notify = false;
+
+    if (activity.actor && activity.actor instanceof Object) {
+      notify = activity.actor.id !== currentUserId;
+    }
+
     return (
       <div className="raf-activity-footer">
         <div className="raf-activity-footer__left" />
@@ -44,8 +52,9 @@ export default class ActivityFooter extends React.Component<Props> {
             <LikeButton
               activity={activity}
               onToggleReaction={onToggleReaction}
+              notify={notify}
             />
-            <RepostButton {...this.props} />
+            {/* <RepostButton {...this.props} /> */}
           </Flex>
         </div>
       </div>
