@@ -4,9 +4,11 @@ import Avatar from './Avatar';
 import Flex from './Flex';
 import type { Comment } from '../types';
 
-import { humanizeTimestamp, textRenderer } from '../utils';
+import { humanizeTimestamp, smartRender, textRenderer } from '../utils';
 import { withTranslationContext } from '../Context';
 import type { Streami18Ctx } from '../Context';
+
+import type { Renderable } from '../types';
 
 export type Props = {|
   comment: Comment,
@@ -15,6 +17,11 @@ export type Props = {|
   onClickHashtag?: (word: string) => mixed,
   /** Handler for any routing you may do on clicks on Mentions */
   onClickMention?: (word: string) => mixed,
+
+  AvatarItem?: Renderable,
+  RemoveItem?: Renderable,
+
+  onRemoveReaction: (commentId: string) => mixed,
 |} & Streami18Ctx;
 
 /**
@@ -41,17 +48,25 @@ class CommentItem extends React.Component<Props> {
 
   render() {
     const { comment, tDateTimeParser } = this.props;
+
+    // const AvatarItem = smartRender(this.props.AvatarItem);
     return (
       <div className="raf-comment-item">
         <Flex a="flex-start" style={{ padding: '8px 0' }}>
-          {comment.user.data.profileImage && (
-            <Avatar
-              onClick={this._getOnClickUser()}
-              image={comment.user.data.profileImage}
-              circle
-              size={25}
-            />
-          )}
+          {this.props.AvatarItem
+            ? smartRender(this.props.AvatarItem, {
+                displayName: comment.user.data.name,
+                imgUrl: comment.user.data.profileImage,
+                to: `/p/${comment.user.data.permalink || ''}`,
+              })
+            : comment.user.data.profileImage && (
+                <Avatar
+                  onClick={this._getOnClickUser()}
+                  image={comment.user.data.profileImage}
+                  circle
+                  size={25}
+                />
+              )}
         </Flex>
         <Flex d="column" style={{ flex: 1, margin: '0 8px' }}>
           <div className="raf-comment-item__content">
@@ -61,12 +76,13 @@ class CommentItem extends React.Component<Props> {
               </small>
             </time>
             <p>
-              <span
+              <a
+                href={`/p/${comment.user.data.permalink || ''}`}
                 onClick={this._getOnClickUser()}
                 className="raf-comment-item__author"
               >
                 {comment.user.data.name}
-              </span>{' '}
+              </a>{' '}
               {textRenderer(
                 comment.data.text,
                 'raf-comment-item',
@@ -74,6 +90,7 @@ class CommentItem extends React.Component<Props> {
                 this.props.onClickHashtag,
               )}
             </p>
+            {smartRender(this.props.RemoveItem, { comment })}
           </div>
         </Flex>
       </div>

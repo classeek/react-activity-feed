@@ -8,8 +8,8 @@ import type {
   ToggleChildReactionCallbackFunction,
 } from '../types';
 
-import likebuttonActive from '../images/like-active@1x.png';
-import likebuttonInactive from '../images/like@1x.png';
+import likebuttonInactive from '../images/thumbs-up-inactive.svg';
+import likebuttonActive from '../images/thumbs-up-active.svg';
 
 type Props = {|
   /** The activity received from stream that should be liked when pressing the
@@ -23,6 +23,8 @@ type Props = {|
   onToggleReaction: ToggleReactionCallbackFunction,
   /** The function that toggles reactions on reactions. */
   onToggleChildReaction?: ToggleChildReactionCallbackFunction,
+  kind: string,
+  notify?: boolean,
 |};
 
 /**
@@ -30,23 +32,42 @@ type Props = {|
  * @example ./examples/LikeButton.md
  */
 export default class LikeButton extends React.Component<Props> {
+  static defaultProps = {
+    kind: 'like',
+  };
+
   _onPress = () => {
     const {
       activity,
       reaction,
       onToggleReaction,
       onToggleChildReaction,
+      kind,
+      notify,
     } = this.props;
 
-    if (reaction && onToggleChildReaction) {
-      return onToggleChildReaction('like', reaction, {}, {});
+    let options = {};
+
+    if (notify && reaction) {
+      const { user } = reaction;
+      options = { targetFeeds: [`notification:${user.id}`] };
+    } else if (notify && activity) {
+      const { actor } = activity;
+      if (actor && actor instanceof Object) {
+        options = { targetFeeds: [`notification:${actor.id}`] };
+      }
     }
-    return onToggleReaction('like', activity, {}, {});
+
+    if (reaction && onToggleChildReaction) {
+      return onToggleChildReaction(kind, reaction, {}, options);
+    }
+    return onToggleReaction(kind, activity, {}, options);
   };
 
   render() {
-    const { activity, reaction } = this.props;
+    const { activity, reaction, kind } = this.props;
     let counts, own_reactions;
+
     if (reaction && this.props.onToggleChildReaction) {
       counts = reaction.children_counts;
       own_reactions = reaction.own_children;
@@ -65,7 +86,7 @@ export default class LikeButton extends React.Component<Props> {
       <ReactionToggleIcon
         counts={counts}
         own_reactions={own_reactions}
-        kind="like"
+        kind={kind}
         onPress={this._onPress}
         activeIcon={likebuttonActive}
         inactiveIcon={likebuttonInactive}

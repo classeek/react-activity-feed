@@ -86,6 +86,7 @@ export type BaseUserResponse = StreamUserResponse<{}>;
 export type UserData = {
   name?: string,
   profileImage?: string,
+  permalink?: string,
 };
 
 export type OgData = OgDataGetStream;
