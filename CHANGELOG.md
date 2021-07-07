@@ -5,9 +5,97 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 1.2.1 - 2021-7-5
 
-Nothing yet
+### Fix
+
+- Fix StatusUpdateForm paste error #279
+
+## 1.2.0 - 2021-5-26
+
+### Fix
+
+- Removed Fort Awesome packages and replaced them with custom icons #272 #271
+
+### Chore
+
+- Bump `react-file-utils` version, reducing bundle size by 20% #273
+
+## 1.1.1 - 2021-5-20
+
+### Feature
+
+- `Activity` component accepts a custom `Card` prop #268
+
+### Fix
+
+- Add `tslib` to dependencies #269
+- `FlatFeed` clean up properly on feed group change #267
+
+## 1.1.0 - 2021-5-17
+
+- Preserve modules for better tree shaking #261
+
+## 1.0.1 - 2021-05-12
+
+### Fix
+
+- Fix built package
+
+## 1.0.0 - 2021-05-07
+
+Version 1.x is a major revamp of the SDK and comes with some breaking changes. This release also comes with lots of small bug fixes, using react Context API and hooks, and full typescript support. Some dependencies has been replaced or removed due to their lack of support.
+
+### Features
+
+- Typescript support
+- Bundle size reduced by 40%
+- SCSS support
+- Node v16 support
+
+### ⚠️ BREAKING CHANGES ⚠️
+
+- Node v10 support is dropped.
+- Flow support has been removed in favor of Typescript.
+- `dist/index.es.css` is deleted in favor of `dist/index.css`.
+- `InfiniteScroll` component no longer supports `getScrollParent` property, scroll parent is now calculated within this component when `useWindow` property is set to `false`.
+- `Gallery` component replaced `react-images` with `react-image-lightbox`.
+- Text render uses `linkifyjs` instead of `anchorme` for better future support.
+- `B2BTimeline`, `B2BActivity`, `Modal` components and `StreamApp.Consumer` are removed.
+- `EmojiPicker` component ships with a lighter set of emojis to reduce bundle size. `StatusUpdateForm` and `CommentField` accepts a custom prop `emojiData` that allows extending default emoji list.
+- `FlatFeed`, `NotificationDropdown`, `NotificationFeed` no longer pass down the `FeedManager` props to activities.
+- `CommentList`, `CommentField`, `LikeButton`, `ReactionList` use context values and no longer accepts feed manager props.
+
+### Fix
+
+- Full browser build
+
+## 0.10.9 - 2021-02-18
+
+### Fix
+
+- `CommentItem` crash on undefined user #146
+
+## 0.10.8 - 2021-01-22
+
+- Close Faye connection on StreamApp unmount #135
+
+## 0.10.7 - 2021-01-15
+
+- `textRenderer` supports new line in input texts #133
+
+## 0.10.6 - 2020-12-15
+
+- Fix userId source in `addReaction` and `addChildReaction` #132
+
+## 0.10.5 - 2020-12-15
+
+- Add userId to `addReaction` and `addChildReaction` if its missing #131
+- Fix timestamps for comment and userbar #130
+
+## 0.10.4 - 2020-10-19
+
+- Updated Video component to correctly render youtube videos
 
 ## 0.10.3 - 2020-10-13
 
