@@ -105,6 +105,7 @@ export type CustomActivityData = {
   link?: boolean,
   image?: string,
   attachments?: Attachments,
+  is_pinned?: boolean,
 };
 
 export type CustomActivityArgData = ActivityArgData<{}, CustomActivityData>;

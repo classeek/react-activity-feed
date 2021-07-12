@@ -3,6 +3,10 @@
   border-radius: 4px;
   margin: 8px 0;
 
+  &__pinned {
+    border: 1px solid $primary;
+  }
+
   &__hashtag {
     color: #095482;
   }

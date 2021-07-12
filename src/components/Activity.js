@@ -158,7 +158,11 @@ class Activity extends React.Component<Props> {
 
   render() {
     return (
-      <div className="raf-activity">
+      <div
+        className={`raf-activity ${
+          this.props.activity.is_pinned ? 'raf-activity__pinned' : ''
+        }`}
+      >
         <React.Fragment>
           {smartRender(this.props.Header, {}, this.renderHeader)}
           {smartRender(this.props.Content, {}, this.renderContent)}
