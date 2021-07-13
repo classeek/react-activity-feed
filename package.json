@@ -1,6 +1,6 @@
 {
   "name": "@classeek/react-activity-feed",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "React components to create activity and notification feeds",
   "author": "classeek",
   "license": "BSD-3-Clause",
